@@ -13,7 +13,7 @@ from dash.exceptions import PreventUpdate
 
 client = Client(api_key='rrmTF65apd5Vf2pM17vutMBZLIq87Mh8A4OTIcjZFlFRt7fjw3X6s488dNmG32GB', api_secret='d3WFAaj9kpHcYkFzkQpKFdicY9dcg4wVKeXbHkDAGxOGvvVuxJrkzt9oLHCewc3c')
 def data_frame(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=100))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=150))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -41,12 +41,12 @@ def data_frame(input_value):
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
     df['STOCHk_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHk_14_3_3']
     df['STOCHd_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHd_14_3_3']
-    df['Last_Close'] = df.Close[-1].round(decimals=2)
+    df['Last_Close'] = df.Close[-1].round(decimals=4)
     return df
 
 
 def data_frame1(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=100))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=150))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -74,7 +74,7 @@ def data_frame1(input_value):
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
     df['STOCHk_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHk_14_3_3']
     df['STOCHd_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHd_14_3_3']
-    df['Last_Close'] = df.Close[-1].round(decimals=2)
+    df['Last_Close'] = df.Close[-1].round(decimals=4)
     return df
 
 
