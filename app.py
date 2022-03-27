@@ -1,5 +1,6 @@
 import pandas as pd
-import yfinance as yf
+from binance import Client
+#import yfinance as yf
 import plotly.graph_objects as go
 import pandas_ta as ta
 from datetime import timedelta
@@ -10,25 +11,32 @@ import dash_bootstrap_components as dbc
 from dash import Input, Output, State, dcc, html
 from dash.exceptions import PreventUpdate
 
+client = Client(api_key='rrmTF65apd5Vf2pM17vutMBZLIq87Mh8A4OTIcjZFlFRt7fjw3X6s488dNmG32GB', api_secret='d3WFAaj9kpHcYkFzkQpKFdicY9dcg4wVKeXbHkDAGxOGvvVuxJrkzt9oLHCewc3c')
 def data_frame(input_value):
-    df = yf.download(tickers=input_value, period="5d", interval='1m')
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=100))
+    df = df.iloc[:,:6]
+    df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+    df = df.set_index('Date')
+    df.index = pd.to_datetime(df.index, unit='ms')
+    df = df.astype(float)
+    #df = yf.download(tickers=input_value, period="5d", interval='1m')
     df['SMA20'] = df.ta.sma(length=20)
     df['SMA12'] = df.ta.sma(length=12)
-    df['EMA8'] = df.ta.ema(length=8)
+    df['EMA6'] = df.ta.ema(length=6)
     df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
     df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
     df['RSI'] = df.ta.rsi(length=14)
     df['RSISMA'] = ta.sma(df.RSI, length=50)
-    df['MACD_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACD_12_26_9']
-    df['MACDh_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACDh_12_26_9']
-    df['MACDs_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACDs_12_26_9']
+    df['MACD_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACD_12_21_9']
+    df['MACDh_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDh_12_21_9']
+    df['MACDs_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDs_12_21_9']
     df['SUPERTl_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTl_7_3.0']
     df['SUPERTs_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTs_7_3.0']
     df['SUPERTl_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTl_14_5.0']
     df['SUPERTs_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTs_14_5.0']
     df['SUPERTl_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTl_14_4.5']
     df['SUPERTs_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTs_14_4.5']
-    df['VWAP_D'] = df.ta.vwap()
+    #df['VWAP_D'] = df.ta.vwap()
     df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
     df['STOCHk_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHk_14_3_3']
@@ -38,24 +46,30 @@ def data_frame(input_value):
 
 
 def data_frame1(input_value):
-    df = yf.download(tickers=input_value, period="5d", interval='5m')
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=100))
+    df = df.iloc[:,:6]
+    df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+    df = df.set_index('Date')
+    df.index = pd.to_datetime(df.index, unit='ms')
+    df = df.astype(float)
+    #df = yf.download(tickers=input_value, period="4d", interval='5m')
     df['SMA20'] = df.ta.sma(length=20)
     df['SMA12'] = df.ta.sma(length=12)
-    df['EMA8'] = df.ta.ema(length=8)
+    df['EMA6'] = df.ta.ema(length=6)
     df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
     df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
     df['RSI'] = df.ta.rsi(length=14)
     df['RSISMA'] = ta.sma(df.RSI, length=50)
-    df['MACD_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACD_12_26_9']
-    df['MACDh_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACDh_12_26_9']
-    df['MACDs_12_26_9'] = df.ta.macd(fast=12, slow=26, signal=9)['MACDs_12_26_9']
+    df['MACD_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACD_12_21_9']
+    df['MACDh_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDh_12_21_9']
+    df['MACDs_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDs_12_21_9']
     df['SUPERTl_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTl_7_3.0']
     df['SUPERTs_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTs_7_3.0']
     df['SUPERTl_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTl_14_5.0']
     df['SUPERTs_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTs_14_5.0']
     df['SUPERTl_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTl_14_4.5']
     df['SUPERTs_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTs_14_4.5']
-    df['VWAP_D'] = df.ta.vwap()
+    #df['VWAP_D'] = df.ta.vwap()
     df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
     df['STOCHk_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHk_14_3_3']
@@ -65,13 +79,28 @@ def data_frame1(input_value):
 
 
 def data_frame2(input_value):
-    df = yf.download(tickers=input_value, period="5d", interval='15m')
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=100))
+    df = df.iloc[:,:6]
+    df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+    df = df.set_index('Date')
+    df.index = pd.to_datetime(df.index, unit='ms')
+    df = df.astype(float)
+    #df = yf.download(tickers=input_value, period="4d", interval='15m')
     df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
     df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
     df['RSI'] = df.ta.rsi(length=14)
     df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
     return df
+
+#def data_frame3(input_value):
+    #df = yf.download(tickers=input_value, period="5d", interval='30m')
+    #df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
+    #df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
+    #df['RSI'] = df.ta.rsi(length=14)
+    #df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
+    #df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
+    #return df
 
 warnings.simplefilter('ignore', UserWarning)
 
@@ -83,7 +112,7 @@ auth = BasicAuth(app, {'zulfianto@yahoo.co.id': '070786'})
 
 app.layout = html.Div([
     html.Div([
-        dbc.Input(id="stock-input", placeholder="Search for a Symbol...", type="text", style={'width': '200px', 'float': 'left', 'position': 'relative',
+        dbc.Input(id="stock-input", placeholder="Search for a Symbol...", type="text", value='ADAUSDT', style={'width': '200px', 'float': 'left', 'position': 'relative',
                     'left': '100px', 'top': '7px'}),
         dbc.Button(id="submit-button", n_clicks=0, children="Search", color="primary", className="me-1", style={'width': '100px', 'position': 'relative',
                     'float': 'left', 'left': '105px', 'top': '7px' }),
@@ -98,16 +127,16 @@ app.layout = html.Div([
         dbc.Row([
             dbc.Col([html.Div([
                 #dcc.Graph(figure=data)
-                dcc.Graph(id="graph1", animate=False),
-                dcc.Interval(id="graph-update1", disabled=False, interval=5*1000, max_intervals=0, n_intervals=0)
+                dcc.Graph(id="graph1", animate=False, config={"displaylogo": False}),
+                dcc.Interval(id="graph-update1", disabled=False, interval=5*1000, max_intervals=-1, n_intervals=0)
                 ],
-                style={'margin': '0px 0px 0px 0px', 'width': '99%'}),]),
+                style={'margin': '0px 0px 0px 0px', 'width': '98%'}),]),
             dbc.Col([html.Div([
                 #dcc.Graph(figure=data1)
-                dcc.Graph(id="graph", animate=False),
-                dcc.Interval(id="graph-update", disabled=False, interval=5*1000, max_intervals=0, n_intervals=0)
+                dcc.Graph(id="graph", animate=False, config={"displaylogo": False}),
+                dcc.Interval(id="graph-update", disabled=False, interval=5*1000, max_intervals=-1, n_intervals=0)
                 ],
-                style={'margin': '0px 0px 0px 0px', 'width': '99%'}),])
+                style={'margin': '0px 0px 0px 0px', 'width': '98%'}),])
         ], className="g-0")
         ])
     ])
@@ -148,8 +177,8 @@ def display_candlestick(n_clicks, input_data, input_value):
 
     data.add_trace(go.Scatter(
         x=df.index[-80:],
-        y=df.EMA8[-80:],
-        name='EMA8',
+        y=df.EMA6[-80:],
+        name='EMA6',
         mode='lines',
         line=dict(color='blue', width=3), hoverinfo='none', yaxis="y3"))
 
@@ -213,12 +242,12 @@ def display_candlestick(n_clicks, input_data, input_value):
             color="red", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
-    data.add_trace(go.Scatter(
-        x=df.index[-80:],
-        y=df['VWAP_D'][-80:],
-        name='VWAP',
-        mode='lines',
-        line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
+    #data.add_trace(go.Scatter(
+        #x=df.index[-80:],
+        #y=df['VWAP_D'][-80:],
+        #name='VWAP',
+        #mode='lines',
+        #line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
         x=df.index[-80:],
@@ -260,21 +289,21 @@ def display_candlestick(n_clicks, input_data, input_value):
         y=df['RSISMA'][-80:],
         name='RSISMA',
         mode='lines',
-        line=dict(color='gray', width=3), yaxis="y2"))
+        line=dict(color='gray', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-80:],
         y=df['STOCHk_14_3_3'][-80:],
         name='STOCHk_14_3_3',
         mode='lines',
-        line=dict(color='blue', width=3), yaxis="y2"))
+        line=dict(color='blue', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-80:],
         y=df['STOCHd_14_3_3'][-80:],
         name='STOCHd_14_3_3',
         mode='lines',
-        line=dict(color='red', width=3), yaxis="y2"))
+        line=dict(color='red', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-80:],
@@ -353,12 +382,12 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=690,
+        height=670,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-80], df.index[-1] + timedelta(minutes=6)], rangeslider_visible=False,
                    rangebreaks=[
-                       dict(bounds=["sat", "mon"]),
-                       dict(bounds=[16, 9.5], pattern="hour"),
+                       #dict(bounds=["sat", "mon"]),
+                       #dict(bounds=[16, 9.5], pattern="hour"),
                        # dict(values=["2021-11-25", ])
                    ]),
         yaxis1=dict(domain=[0, 0.2], side='right', linecolor='grey', linewidth=0.01, gridwidth=0.001,
@@ -379,6 +408,7 @@ def display_candlestick(n_clicks, input_data, input_value):
 def display_candlestick(n_clicks, input_data, input_value):
     df = data_frame1(input_value)
     df1 = data_frame2(input_value)
+    #df2 = data_frame3(input_value)
     data = go.Figure()
 
     data.add_trace(go.Candlestick(
@@ -405,8 +435,8 @@ def display_candlestick(n_clicks, input_data, input_value):
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
-        y=df.EMA8[-60:],
-        name='EMA8',
+        y=df.EMA6[-60:],
+        name='EMA6',
         mode='lines',
         line=dict(color='blue', width=3), hoverinfo='none', yaxis="y3"))
 
@@ -437,6 +467,20 @@ def display_candlestick(n_clicks, input_data, input_value):
         name='BBU',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
+    
+    #data.add_trace(go.Scatter(
+        #x=df2.index[-10:],
+        #y=df2['BBL_20_2.0'][-10:],
+        #name='BBL',
+        #mode='lines',
+        #line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
+
+    #data.add_trace(go.Scatter(
+        #x=df2.index[-10:],
+        #y=df2['BBU_20_2.0'][-10:],
+        #name='BBU',
+        #mode='lines',
+        #line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
@@ -470,12 +514,12 @@ def display_candlestick(n_clicks, input_data, input_value):
             color="red", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
-    data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['VWAP_D'][-60:],
-        name='VWAP',
-        mode='lines',
-        line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
+    #data.add_trace(go.Scatter(
+        #x=df.index[-60:],
+        #y=df['VWAP_D'][-60:],
+        #name='VWAP',
+        #mode='lines',
+        #line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
@@ -517,21 +561,21 @@ def display_candlestick(n_clicks, input_data, input_value):
         y=df['RSISMA'][-80:],
         name='RSISMA',
         mode='lines',
-        line=dict(color='gray', width=3), yaxis="y2"))
+        line=dict(color='gray', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
         y=df['STOCHk_14_3_3'][-60:],
         name='STOCHk_14_3_3',
         mode='lines',
-        line=dict(color='blue', width=3), yaxis="y2"))
+        line=dict(color='blue', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
         y=df['STOCHd_14_3_3'][-60:],
         name='STOCHd_14_3_3',
         mode='lines',
-        line=dict(color='red', width=3), yaxis="y2"))
+        line=dict(color='red', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
         x=df.index[-60:],
@@ -610,12 +654,12 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=690,
+        height=670,
         margin=dict(t=30, l=0, r=0, b=0),
-        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=20)], rangeslider_visible=False,
+        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
-                       dict(bounds=["sat", "mon"]),
-                       dict(bounds=[16, 9.5], pattern="hour"),
+                       #dict(bounds=["sat", "mon"]),
+                       #dict(bounds=[16, 9.5], pattern="hour"),
                        # dict(values=["2021-11-25", ])
                    ]),
         yaxis1=dict(domain=[0, 0.2], side='right', linecolor='grey', linewidth=0.01, gridwidth=0.001,
@@ -627,25 +671,6 @@ def display_candlestick(n_clicks, input_data, input_value):
     )
     return data
 
-@app.callback(
-    Output(component_id="graph-update", component_property="n_intervals"),
-    [Input(component_id="submit-button", component_property="n_clicks")])
-def stop_interval(n_clicks):
-    if n_clicks >= 1:
-        max_intervals = -1
-    else:
-        raise PreventUpdate
-    return (max_intervals)
-
-@app.callback(
-    Output(component_id="graph-update1", component_property="n_intervals"),
-    [Input(component_id="submit-button", component_property="n_clicks")])
-def stop_interval(n_clicks):
-    if n_clicks >= 1:
-        max_intervals = -1
-    else:
-        raise PreventUpdate
-    return (max_intervals)
 
 
 if __name__ == '__main__':
