@@ -76,7 +76,7 @@ def data_frame1(input_value):
 
 
 def data_frame2(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=150))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=50))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -664,89 +664,89 @@ def display_candlestick(n_clicks, input_data, input_value):
     data = go.Figure()
 
     data.add_trace(go.Candlestick(
-        x=df.index[-60:],
-        open=df.Open[-60:],
-        high=df.High[-60:],
-        low=df.Low[-60:],
-        close=df.Close[-60:],
+        x=df.index,
+        open=df.Open,
+        high=df.High,
+        low=df.Low,
+        close=df.Close,
         name='candlestick', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df.SMA20[-60:],
+        x=df.index,
+        y=df.SMA20,
         name='SMA20',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df.SMA12[-60:],
+        x=df.index,
+        y=df.SMA12,
         name='SMA12',
         mode='lines',
         line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df.EMA6[-60:],
+        x=df.index,
+        y=df.EMA6,
         name='EMA6',
         mode='lines',
         line=dict(color='blue', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['BBL_20_2.0'][-60:],
+        x=df.index,
+        y=df['BBL_20_2.0'],
         name='BBL',
         mode='lines',
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['BBU_20_2.0'][-60:],
+        x=df.index,
+        y=df['BBU_20_2.0'],
         name='BBU',
         mode='lines',
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['BBL_20_2.0'][-20:],
+        x=df1.index,
+        y=df1['BBL_20_2.0'],
         name='BBL',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['BBU_20_2.0'][-20:],
+        x=df1.index,
+        y=df1['BBU_20_2.0'],
         name='BBU',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
     
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['PSARl_0.02_0.2'][-60:],
+        x=df.index,
+        y=df['PSARl_0.02_0.2'],
         name='PSARL',
         mode='markers', marker=dict(
             color="black", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['PSARs_0.02_0.2'][-60:],
+        x=df.index,
+        y=df['PSARs_0.02_0.2'],
         name='PSARS',
         mode='markers', marker=dict(
             color="black", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['PSARl_0.02_0.2'][-20:],
+        x=df1.index,
+        y=df1['PSARl_0.02_0.2'],
         name='PSARL',
         mode='markers', marker=dict(
             color="green", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['PSARs_0.02_0.2'][-20:],
+        x=df1.index,
+        y=df1['PSARs_0.02_0.2'],
         name='PSARS',
         mode='markers', marker=dict(
             color="red", opacity=1,
@@ -760,105 +760,105 @@ def display_candlestick(n_clicks, input_data, input_value):
         #line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['SUPERTl_7_3.0'][-60:],
+        x=df.index,
+        y=df['SUPERTl_7_3.0'],
         name='SUPERTl',
         mode='lines',
         line=dict(color='green', width=2), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['SUPERTs_7_3.0'][-60:],
+        x=df.index,
+        y=df['SUPERTs_7_3.0'],
         name='SUPERTs',
         mode='lines',
         line=dict(color='red', width=2), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['SUPERTl_14_5.0'][-60:],
+        x=df.index,
+        y=df['SUPERTl_14_5.0'],
         name='SUPERTl',
         mode='lines',
         line=dict(color='green', width=2), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['SUPERTs_14_5.0'][-60:],
+        x=df.index,
+        y=df['SUPERTs_14_5.0'],
         name='SUPERTs',
         mode='lines',
         line=dict(color='red', width=2), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['RSI'][-60:],
+        x=df.index,
+        y=df['RSI'],
         name='RSI',
         mode='lines',
         line=dict(color='black', width=3), yaxis="y2"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-80:],
-        y=df['RSISMA'][-80:],
+        x=df.index,
+        y=df['RSISMA'],
         name='RSISMA',
         mode='lines',
         line=dict(color='gray', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['STOCHk_14_3_3'][-60:],
+        x=df.index,
+        y=df['STOCHk_14_3_3'],
         name='STOCHk_14_3_3',
         mode='lines',
         line=dict(color='blue', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['STOCHd_14_3_3'][-60:],
+        x=df.index,
+        y=df['STOCHd_14_3_3'],
         name='STOCHd_14_3_3',
         mode='lines',
         line=dict(color='red', width=2), yaxis="y2"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['MACD_12_26_9'][-60:],
+        x=df.index,
+        y=df['MACD_12_26_9'],
         name='mACD',
         mode='lines',
         line=dict(color='blue', width=3), yaxis="y1"))
 
-    inc = df['MACDh_12_26_9'][-60:] > 0
-    dec = df['MACDh_12_26_9'][-60:] < 0
+    inc = df['MACDh_12_26_9'] > 0
+    dec = df['MACDh_12_26_9'] < 0
 
     data.add_trace(go.Bar(
-        x=df.index[-60:][inc],
-        y=df['MACDh_12_26_9'][-60:][inc],
+        x=df.index[inc],
+        y=df['MACDh_12_26_9'][inc],
         name='MACDh', marker={'color': 'green'},
         yaxis="y1"))
 
     data.add_trace(go.Bar(
-        x=df.index[-60:][dec],
-        y=df['MACDh_12_26_9'][-60:][dec],
+        x=df.index[dec],
+        y=df['MACDh_12_26_9'][dec],
         name='MACDh', marker={'color': 'red'},
         yaxis="y1"))
 
     data.add_trace(go.Scatter(
-        x=df.index[-60:],
-        y=df['MACDs_12_26_9'][-60:],
+        x=df.index,
+        y=df['MACDs_12_26_9'],
         name='MACDs',
         mode='lines',
         line=dict(color='red', width=3), yaxis="y1"))
 
-    data.add_shape(type='line', x0=df.index[-60], y0=df['Close'][-1],
+    data.add_shape(type='line', x0=df.index[-140], y0=df['Close'][-1],
                    x1=df.index[-1], y1=df['Close'][-1], line=dict(color='green', width=0.5, dash='dot'),
                    xref="x",
                    yref='y3')
 
-    data.add_shape(type="rect", x0=df.index[-60], y0=70, x1=df.index[-1], y1=100, fillcolor="red",
+    data.add_shape(type="rect", x0=df.index[-140], y0=70, x1=df.index[-1], y1=100, fillcolor="red",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type="rect", x0=df.index[-60], y0=30, x1=df.index[-1], y1=70, fillcolor="blue",
+    data.add_shape(type="rect", x0=df.index[-140], y0=30, x1=df.index[-1], y1=70, fillcolor="blue",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type="rect", x0=df.index[-60], y0=0, x1=df.index[-1], y1=30, fillcolor="green",
+    data.add_shape(type="rect", x0=df.index[-140], y0=0, x1=df.index[-1], y1=30, fillcolor="green",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type='line', x0=df.index[-60], y0=50,
+    data.add_shape(type='line', x0=df.index[-140], y0=50,
                    x1=df.index[-1], y1=50, line=dict(color='black', width=0.5, dash='dot'), xref="x",
                    yref='y2')
 
@@ -892,7 +892,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=1000,
+        height=700,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
