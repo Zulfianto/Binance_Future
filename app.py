@@ -912,7 +912,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         plot_bgcolor='white',
         height=750,
         margin=dict(t=30, l=0, r=0, b=0),
-        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
+        xaxis=dict(range=[df.index[-100], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
                        #dict(bounds=["sat", "mon"]),
                        #dict(bounds=[16, 9.5], pattern="hour"),
