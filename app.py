@@ -82,10 +82,28 @@ def data_frame2(input_value):
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index, unit='ms')
     df = df.astype(float)
+    df['SMA20'] = df.ta.sma(length=20)
+    df['SMA12'] = df.ta.sma(length=12)
+    df['EMA6'] = df.ta.ema(length=6)
     df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
     df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
+    df['RSI'] = df.ta.rsi(length=14)
+    df['RSISMA'] = ta.sma(df.RSI, length=50)
+    df['MACD_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACD_12_21_9']
+    df['MACDh_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDh_12_21_9']
+    df['MACDs_12_26_9'] = df.ta.macd(fast=12, slow=21, signal=9)['MACDs_12_21_9']
+    df['SUPERTl_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTl_7_3.0']
+    df['SUPERTs_7_3.0'] = df.ta.supertrend(length=7, multiplier=3)['SUPERTs_7_3.0']
+    df['SUPERTl_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTl_14_5.0']
+    df['SUPERTs_14_5.0'] = df.ta.supertrend(length=14, multiplier=5)['SUPERTs_14_5.0']
+    df['SUPERTl_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTl_14_4.5']
+    df['SUPERTs_14_4.5'] = df.ta.supertrend(length=14, multiplier=4.5)['SUPERTs_14_4.5']
+    #df['VWAP_D'] = df.ta.vwap()
     df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
     df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
+    df['STOCHk_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHk_14_3_3']
+    df['STOCHd_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHd_14_3_3']
+    df['Last_Close'] = df.Close[-1].round(decimals=4)
     return df
 
 warnings.simplefilter('ignore', UserWarning)
@@ -892,7 +910,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=700,
+        height=750,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
