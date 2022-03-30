@@ -737,8 +737,8 @@ def display_candlestick(n_clicks, input_data, input_value):
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-333:],
-        y=df1['BBU_20_2.0'][-333:],
+        x=df1.index[-50:],
+        y=df1['BBU_20_2.0'][-50:],
         name='BBU',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
@@ -768,8 +768,8 @@ def display_candlestick(n_clicks, input_data, input_value):
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index,
-        y=df1['PSARs_0.02_0.2'],
+        x=df1.index[-50:],
+        y=df1['PSARs_0.02_0.2'][-50:],
         name='PSARS',
         mode='markers', marker=dict(
             color="red", opacity=1,
