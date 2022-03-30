@@ -44,7 +44,7 @@ def data_frame(input_value):
 
 
 def data_frame1(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=150))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=300))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -76,7 +76,7 @@ def data_frame1(input_value):
 
 
 def data_frame2(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=150))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=300))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -132,13 +132,13 @@ app.layout = html.Div([
             dbc.Col([html.Div([
                 #dcc.Graph(figure=data)
                 dcc.Graph(id="graph1", animate=False, config={"displaylogo": False}),
-                dcc.Interval(id="graph-update1", disabled=False, interval=5*1000, max_intervals=1, n_intervals=0)
+                dcc.Interval(id="graph-update1", disabled=False, interval=1*1000, max_intervals=-1, n_intervals=0)
                 ],
                 style={'margin': '0px 0px 0px 0px', 'width': '98%'}),]),
             dbc.Col([html.Div([
                 #dcc.Graph(figure=data1)
                 dcc.Graph(id="graph", animate=False, config={"displaylogo": False}),
-                dcc.Interval(id="graph-update", disabled=False, interval=5*1000, max_intervals=1, n_intervals=0)
+                dcc.Interval(id="graph-update", disabled=False, interval=1*1000, max_intervals=-1, n_intervals=0)
                 ],
                 style={'margin': '0px 0px 0px 0px', 'width': '98%'}),])
         ], className="g-0")
@@ -146,12 +146,12 @@ app.layout = html.Div([
     
     html.Div([
             dcc.Graph(id="graph2", animate=False, config={"displaylogo": False}),
-            dcc.Interval(id="graph-update2", disabled=False, interval=5 * 1000, max_intervals=1, n_intervals=0)
+            dcc.Interval(id="graph-update2", disabled=False, interval=1*1000, max_intervals=-1, n_intervals=0)
             ], style={'margin': '0px 0px 0px 0px', 'width': '100%'}),
     
     html.Div([
             dcc.Graph(id="graph3", animate=False, config={"displaylogo": False}),
-            dcc.Interval(id="graph-update3", disabled=False, interval=5 * 1000, max_intervals=1, n_intervals=0)
+            dcc.Interval(id="graph-update3", disabled=False, interval=1*1000, max_intervals=-1, n_intervals=0)
             ], style={'margin': '0px 0px 0px 0px', 'width': '100%'}),
         
         
@@ -730,15 +730,15 @@ def display_candlestick(n_clicks, input_data, input_value):
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-50:],
-        y=df1['BBL_20_2.0'][-50:],
+        x=df1.index[-100:],
+        y=df1['BBL_20_2.0'][-100:],
         name='BBL',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-50:],
-        y=df1['BBU_20_2.0'][-50:],
+        x=df1.index[-100:],
+        y=df1['BBU_20_2.0'][-100:],
         name='BBU',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
@@ -760,16 +760,16 @@ def display_candlestick(n_clicks, input_data, input_value):
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-50:],
-        y=df1['PSARl_0.02_0.2'][-50:],
+        x=df1.index[-100:],
+        y=df1['PSARl_0.02_0.2'][-100:],
         name='PSARL',
         mode='markers', marker=dict(
             color="green", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-50:],
-        y=df1['PSARs_0.02_0.2'][-50:],
+        x=df1.index[-100:],
+        y=df1['PSARs_0.02_0.2'][-100:],
         name='PSARS',
         mode='markers', marker=dict(
             color="red", opacity=1,
