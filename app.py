@@ -1156,7 +1156,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         yaxis2=dict(domain=[0.2, 0.4], side='right', linecolor='grey', linewidth=0.01, ),
         yaxis3=dict(domain=[0.4, 1], side='right', showgrid=True,
                     gridwidth=0.001, gridcolor='grey', linecolor='grey', linewidth=0.01), showlegend=False,
-        title=(f'{input_value} 5 Min'), title_x=0.5,
+        title=(f'{input_value} 15 Min'), title_x=0.5,
     )
     return data
 
