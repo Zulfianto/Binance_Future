@@ -753,15 +753,15 @@ def display_candlestick(n_clicks, input_data, input_value):
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['BBL_20_2.0'][-20:],
+        x=df1.index[-50:],
+        y=df1['BBL_20_2.0'][-50:],
         name='BBL',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['BBU_20_2.0'][-20:],
+        x=df1.index[-50:],
+        y=df1['BBU_20_2.0'][-50:],
         name='BBU',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
@@ -797,16 +797,16 @@ def display_candlestick(n_clicks, input_data, input_value):
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['PSARl_0.02_0.2'][-20:],
+        x=df1.index[-50:],
+        y=df1['PSARl_0.02_0.2'][-50:],
         name='PSARL',
         mode='markers', marker=dict(
             color="green", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-20:],
-        y=df1['PSARs_0.02_0.2'][-20:],
+        x=df1.index[-50:],
+        y=df1['PSARs_0.02_0.2'][-50:],
         name='PSARS',
         mode='markers', marker=dict(
             color="red", opacity=1,
@@ -952,7 +952,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        #height=670,
+        height=670,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
