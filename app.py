@@ -12,7 +12,7 @@ from dash.exceptions import PreventUpdate
 
 client = Client(api_key='rrmTF65apd5Vf2pM17vutMBZLIq87Mh8A4OTIcjZFlFRt7fjw3X6s488dNmG32GB', api_secret='d3WFAaj9kpHcYkFzkQpKFdicY9dcg4wVKeXbHkDAGxOGvvVuxJrkzt9oLHCewc3c')
 def data_frame(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=1000))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=150))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -44,7 +44,7 @@ def data_frame(input_value):
 
 
 def data_frame1(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=1000))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=150))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -76,7 +76,7 @@ def data_frame1(input_value):
 
 
 def data_frame2(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=100))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=150))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -730,8 +730,8 @@ def display_candlestick(n_clicks, input_data, input_value):
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-333:],
-        y=df1['BBL_20_2.0'][-333:],
+        x=df1.index[-50:],
+        y=df1['BBL_20_2.0'][-50:],
         name='BBL',
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
@@ -760,8 +760,8 @@ def display_candlestick(n_clicks, input_data, input_value):
             size=6), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
-        x=df1.index[-333:],
-        y=df1['PSARl_0.02_0.2'][-333:],
+        x=df1.index[-50:],
+        y=df1['PSARl_0.02_0.2'][-50:],
         name='PSARL',
         mode='markers', marker=dict(
             color="green", opacity=1,
