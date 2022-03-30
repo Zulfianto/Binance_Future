@@ -904,21 +904,21 @@ def display_candlestick(n_clicks, input_data, input_value):
         mode='lines',
         line=dict(color='red', width=3), yaxis="y1"))
 
-   data.add_shape(type='line', x0=df.index[-140], y0=df['Close'][-1],
+   data.add_shape(type='line', x0=df.index[-60], y0=df['Close'][-1],
                    x1=df.index[-1], y1=df['Close'][-1], line=dict(color='green', width=0.5, dash='dot'),
                    xref="x",
                    yref='y3')
 
-    data.add_shape(type="rect", x0=df.index[-140], y0=70, x1=df.index[-1], y1=100, fillcolor="red",
+    data.add_shape(type="rect", x0=df.index[-60], y0=70, x1=df.index[-1], y1=100, fillcolor="red",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type="rect", x0=df.index[-140], y0=30, x1=df.index[-1], y1=70, fillcolor="blue",
+    data.add_shape(type="rect", x0=df.index[-60], y0=30, x1=df.index[-1], y1=70, fillcolor="blue",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type="rect", x0=df.index[-140], y0=0, x1=df.index[-1], y1=30, fillcolor="green",
+    data.add_shape(type="rect", x0=df.index[-60], y0=0, x1=df.index[-1], y1=30, fillcolor="green",
                    opacity=0.2,
                    xref="x", yref='y2')
-    data.add_shape(type='line', x0=df.index[-140], y0=50,
+    data.add_shape(type='line', x0=df.index[-60], y0=50,
                    x1=df.index[-1], y1=50, line=dict(color='black', width=0.5, dash='dot'), xref="x",
                    yref='y2')
     
