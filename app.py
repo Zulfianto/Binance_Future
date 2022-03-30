@@ -1,6 +1,5 @@
 import pandas as pd
 from binance import Client
-#import yfinance as yf
 import plotly.graph_objects as go
 import pandas_ta as ta
 from datetime import timedelta
@@ -19,7 +18,6 @@ def data_frame(input_value):
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index, unit='ms')
     df = df.astype(float)
-    #df = yf.download(tickers=input_value, period="5d", interval='1m')
     df['SMA20'] = df.ta.sma(length=20)
     df['SMA12'] = df.ta.sma(length=12)
     df['EMA6'] = df.ta.ema(length=6)
@@ -52,7 +50,6 @@ def data_frame1(input_value):
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index, unit='ms')
     df = df.astype(float)
-    #df = yf.download(tickers=input_value, period="4d", interval='5m')
     df['SMA20'] = df.ta.sma(length=20)
     df['SMA12'] = df.ta.sma(length=12)
     df['EMA6'] = df.ta.ema(length=6)
@@ -85,7 +82,6 @@ def data_frame2(input_value):
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index, unit='ms')
     df = df.astype(float)
-    #df = yf.download(tickers=input_value, period="4d", interval='15m')
     df['SMA20'] = df.ta.sma(length=20)
     df['SMA12'] = df.ta.sma(length=12)
     df['EMA6'] = df.ta.ema(length=6)
@@ -109,15 +105,6 @@ def data_frame2(input_value):
     df['STOCHd_14_3_3'] = df.ta.stoch(k=14, d=3, smooth_k=3)['STOCHd_14_3_3']
     df['Last_Close'] = df.Close[-1].round(decimals=4)
     return df
-
-#def data_frame3(input_value):
-    #df = yf.download(tickers=input_value, period="5d", interval='30m')
-    #df['BBL_20_2.0'] = df.ta.bbands(length=20)['BBL_20_2.0']
-    #df['BBU_20_2.0'] = df.ta.bbands(length=20)['BBU_20_2.0']
-    #df['RSI'] = df.ta.rsi(length=14)
-    #df['PSARl_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARl_0.02_0.2']
-    #df['PSARs_0.02_0.2'] = df.ta.psar(af0=0.02, af=0.02, max_af=0.2)['PSARs_0.02_0.2']
-    #return df
 
 warnings.simplefilter('ignore', UserWarning)
 
@@ -493,20 +480,6 @@ def display_candlestick(n_clicks, input_data, input_value):
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
     
-    #data.add_trace(go.Scatter(
-        #x=df2.index[-10:],
-        #y=df2['BBL_20_2.0'][-10:],
-        #name='BBL',
-        #mode='lines',
-        #line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
-
-    #data.add_trace(go.Scatter(
-        #x=df2.index[-10:],
-        #y=df2['BBU_20_2.0'][-10:],
-        #name='BBU',
-        #mode='lines',
-        #line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
-
     data.add_trace(go.Scatter(
         x=df.index[-60:],
         y=df['PSARl_0.02_0.2'][-60:],
@@ -766,20 +739,6 @@ def display_candlestick(n_clicks, input_data, input_value):
         mode='lines',
         line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
 
-    # data.add_trace(go.Scatter(
-    # x=df2.index[-10:],
-    # y=df2['BBL_20_2.0'][-10:],
-    # name='BBL',
-    # mode='lines',
-    # line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
-
-    # data.add_trace(go.Scatter(
-    # x=df2.index[-10:],
-    # y=df2['BBU_20_2.0'][-10:],
-    # name='BBU',
-    # mode='lines',
-    # line=dict(color='red', width=3), hoverinfo='none', yaxis="y3"))
-
     data.add_trace(go.Scatter(
         x=df.index,
         y=df['PSARl_0.02_0.2'],
@@ -811,13 +770,6 @@ def display_candlestick(n_clicks, input_data, input_value):
         mode='markers', marker=dict(
             color="red", opacity=1,
             size=6), hoverinfo='none', yaxis="y3"))
-
-    # data.add_trace(go.Scatter(
-    # x=df.index[-60:],
-    # y=df['VWAP_D'][-60:],
-    # name='VWAP',
-    # mode='lines',
-    # line=dict(color='purple', width=3), hoverinfo='none', yaxis="y3"))
 
     data.add_trace(go.Scatter(
         x=df.index,
