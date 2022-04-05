@@ -12,7 +12,7 @@ from dash.exceptions import PreventUpdate
 
 client = Client(api_key='rrmTF65apd5Vf2pM17vutMBZLIq87Mh8A4OTIcjZFlFRt7fjw3X6s488dNmG32GB', api_secret='d3WFAaj9kpHcYkFzkQpKFdicY9dcg4wVKeXbHkDAGxOGvvVuxJrkzt9oLHCewc3c')
 def data_frame(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=80))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1m', limit=120))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -44,7 +44,7 @@ def data_frame(input_value):
 
 
 def data_frame1(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=60))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='5m', limit=100))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -76,7 +76,7 @@ def data_frame1(input_value):
 
 
 def data_frame2(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=60))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='15m', limit=100))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -107,7 +107,7 @@ def data_frame2(input_value):
     return df
 
 def data_frame3(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1h', limit=60))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1h', limit=100))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
@@ -138,7 +138,7 @@ def data_frame3(input_value):
     return df
 
 def data_frame4(input_value):
-    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1d', limit=60))
+    df = pd.DataFrame(client.futures_klines(symbol=input_value, interval='1d', limit=100))
     df = df.iloc[:,:6]
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
     df = df.set_index('Date')
