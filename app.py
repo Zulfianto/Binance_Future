@@ -974,7 +974,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         plot_bgcolor='white',
         height=670,
         margin=dict(t=30, l=0, r=0, b=0),
-        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
+        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=45)], rangeslider_visible=False,
                    rangebreaks=[
                        #dict(bounds=["sat", "mon"]),
                        #dict(bounds=[16, 9.5], pattern="hour"),
@@ -1043,20 +1043,6 @@ def display_candlestick(n_clicks, input_data, input_value):
         name='BBU',
         mode='lines',
         line=dict(color='black', width=3), hoverinfo='none', yaxis="y3"))
-
-    data.add_trace(go.Scatter(
-        x=df1.index[-3:],
-        y=df1['BBL_20_2.0'][-3:],
-        name='BBL',
-        mode='lines',
-        line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
-
-    data.add_trace(go.Scatter(
-        x=df1.index[-3:],
-        y=df1['BBU_20_2.0'][-3:],
-        name='BBU',
-        mode='lines',
-        line=dict(color='orange', width=3), hoverinfo='none', yaxis="y3"))
     
     data.add_trace(go.Scatter(
         x=df.index[-60:],
@@ -1216,7 +1202,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         plot_bgcolor='white',
         height=670,
         margin=dict(t=30, l=0, r=0, b=0),
-        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
+        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=180)], rangeslider_visible=False,
                    rangebreaks=[
                        #dict(bounds=["sat", "mon"]),
                        #dict(bounds=[16, 9.5], pattern="hour"),
@@ -1442,7 +1428,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         plot_bgcolor='white',
         height=670,
         margin=dict(t=30, l=0, r=0, b=0),
-        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
+        xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=2880)], rangeslider_visible=False,
                    rangebreaks=[
                        #dict(bounds=["sat", "mon"]),
                        #dict(bounds=[16, 9.5], pattern="hour"),
