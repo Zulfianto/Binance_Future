@@ -472,7 +472,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=670,
+        height=700,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-80], df.index[-1] + timedelta(minutes=6)], rangeslider_visible=False,
                    rangebreaks=[
@@ -730,7 +730,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=670,
+        height=700,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=22)], rangeslider_visible=False,
                    rangebreaks=[
@@ -972,7 +972,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=700,
+        height=750,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=45)], rangeslider_visible=False,
                    rangebreaks=[
@@ -1200,7 +1200,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=700,
+        height=750,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=180)], rangeslider_visible=False,
                    rangebreaks=[
@@ -1426,7 +1426,7 @@ def display_candlestick(n_clicks, input_data, input_value):
         # width=1500,
         paper_bgcolor='#F5F5F5',
         plot_bgcolor='white',
-        height=700,
+        height=750,
         margin=dict(t=30, l=0, r=0, b=0),
         xaxis=dict(range=[df.index[-60], df.index[-1] + timedelta(minutes=4320)], rangeslider_visible=False,
                    rangebreaks=[
